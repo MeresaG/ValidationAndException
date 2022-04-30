@@ -7,12 +7,14 @@ import edu.miu.validationAndexception.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -21,9 +23,10 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public void save(UserDto u) {
+    public UserDto save(UserDto u) {
         User user = modelMapper.map(u, User.class);
         userRepo.save(user);
+        return u;
     }
 
     @Override
@@ -42,11 +45,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(UserDto u) {
-        
+
     }
 
     @Override
-    public void delete(UUID id) {
-
+    public UserDto delete(UUID id) {
+        UserDto u = getById(id);
+        userRepo.deleteById(id);
+        return u;
     }
 }
