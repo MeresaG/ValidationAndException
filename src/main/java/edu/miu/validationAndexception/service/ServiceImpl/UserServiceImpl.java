@@ -1,7 +1,7 @@
 package edu.miu.validationAndexception.service.ServiceImpl;
 
 import edu.miu.validationAndexception.dto.UserDto;
-import edu.miu.validationAndexception.entity.User;
+import edu.miu.validationAndexception.entity.UserEntity;
 import edu.miu.validationAndexception.repository.UserRepo;
 import edu.miu.validationAndexception.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -24,8 +24,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto save(UserDto u) {
-        User user = modelMapper.map(u, User.class);
-        userRepo.save(user);
+        UserEntity userEntity = modelMapper.map(u, UserEntity.class);
+        userRepo.save(userEntity);
         return u;
     }
 
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> getAll() {
         List<UserDto> users = new ArrayList<>();
         userRepo.findAll().forEach(
-                user -> users.add(modelMapper.map(user, UserDto.class))
+                userEntity -> users.add(modelMapper.map(userEntity, UserDto.class))
         );
         return users;
     }

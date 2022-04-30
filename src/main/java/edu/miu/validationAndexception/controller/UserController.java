@@ -8,6 +8,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -30,11 +31,11 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody UserDto u) {
+    public ResponseEntity<?> save(@RequestBody @Valid UserDto u) {
         Optional<UserDto> userDto = Optional.ofNullable(userService.save(u));
         return new ResponseEntity<>(userDto.get(), HttpStatus.CREATED);
     }
-    
+
     @DeleteMapping
     public ResponseEntity<?> delete(@PathVariable UUID id) {
         Optional<UserDto> userDto = Optional.ofNullable(userService.delete(id));

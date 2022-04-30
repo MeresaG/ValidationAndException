@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class User {
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,5 +19,6 @@ public class User {
     private String name;
     private String email;
     private String phoneNumber;
+    private int age;
 
 }
