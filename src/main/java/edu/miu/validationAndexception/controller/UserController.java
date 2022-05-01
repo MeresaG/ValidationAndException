@@ -1,6 +1,7 @@
 package edu.miu.validationAndexception.controller;
 
 import edu.miu.validationAndexception.dto.UserDto;
+import edu.miu.validationAndexception.exception.UserNotFoundException;
 import edu.miu.validationAndexception.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> delete(@PathVariable UUID id) {
+    public ResponseEntity<?> delete(@PathVariable UUID id) throws UserNotFoundException {
         Optional<UserDto> userDto = Optional.ofNullable(userService.delete(id));
         return userDto.isPresent() ? new ResponseEntity<>(userDto.get(), HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
